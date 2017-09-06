@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean diceThreadStarted = false;
     public static final int DICE_SIZE = 6;
 
-    List<Integer> dice = new ArrayList<>(DICE_SIZE);
+    List<String> dice = new ArrayList<>(DICE_SIZE);
 
 
 
@@ -40,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
         final TextView diceView = (TextView) findViewById(R.id.dice);
         final Random random = new Random();
 
-        for (int i= 1 ; i<=DICE_SIZE; i++) {dice.add(i);}
+        final int rollingColor = getResources().getColor(R.color.diceRolling);
+        final int readyColor = getResources().getColor(R.color.diceReady);
+
+
+        for (int i= 1 ; i<=DICE_SIZE; i++) {dice.add(String.format(Locale.US,"%d", i));}
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,26 +64,26 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(LOG_TAG, "Thorow iterations: "  + Integer.toString(currentDiceRollIterations));
                             for (int i = 0; i < currentDiceRollIterations; i++) {
 
-                                final int diceInt = dice.get(i%DICE_SIZE);
+                                final String diceValue = dice.get(i%DICE_SIZE);
 
                                 if (i == 0) diceView.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        diceView.setTextColor(Color.parseColor("#ff919d"));
+                                        diceView.setTextColor(rollingColor);
                                     }
                                 });
 
                                 diceView.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        diceView.setText(String.format(Locale.US,"%d",diceInt));
+                                        diceView.setText(diceValue);
                                     }
                                 });
 
                                 if (i == currentDiceRollIterations -1) diceView.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        diceView.setTextColor(Color.parseColor("#85e5a5"));
+                                        diceView.setTextColor(readyColor);
                                     }
                                 });
 
