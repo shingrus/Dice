@@ -10,7 +10,7 @@ import android.hardware.SensorManager;
  * Tnaks to http://jasonmcreynolds.com/?p=388
  */
 
-private class ShakeDetector implements SensorEventListener {
+class ShakeDetector implements SensorEventListener {
 
 
     private static final float SHAKE_THRESHOLD_GRAVITY = 2.7F;
@@ -25,7 +25,7 @@ private class ShakeDetector implements SensorEventListener {
         this.mListener = listener;
     }
 
-    private interface OnShakeListener {
+    protected interface OnShakeListener {
          void onShake(int count);
     }
 
