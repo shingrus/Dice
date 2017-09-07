@@ -21,11 +21,11 @@ class ShakeDetector implements SensorEventListener {
     private long mShakeTimestamp;
     private int mShakeCount;
 
-    private void setOnShakeListener(OnShakeListener listener) {
+    void setOnShakeListener(OnShakeListener listener) {
         this.mListener = listener;
     }
 
-    protected interface OnShakeListener {
+    interface OnShakeListener {
          void onShake(int count);
     }
 

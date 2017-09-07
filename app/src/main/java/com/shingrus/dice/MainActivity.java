@@ -20,12 +20,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+    import it.sephiroth.android.library.tooltip.Tooltip;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = "MAIN";
     private static final int DICE_ROLL_ITERATIONS = 12;
     public boolean diceThreadStarted = false;
     public static final int DICE_SIZE = 6;
+    int rollCounter = 0;
 
     List<String> dice = new ArrayList<>(DICE_SIZE);
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private    TextView diceView ;
     final Random random = new Random();
     private Vibrator vibrator = null;
+    Tooltip.TooltipView tooltip;
 
     int rollingColor = 0;
     int readyColor = 0;
@@ -64,22 +68,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        tooltip = Tooltip.make(this,
+                new Tooltip.Builder(101)
+                        .anchor(fab, Tooltip.Gravity.TOP)
+                        .activateDelay(800)
+                        .showDelay(300)
+                        .text(getResources().getString(R.string.startTooltip))
+                        .withArrow(true)
+                        .floatingAnimation(Tooltip.AnimationBuilder.SLOW)
+                        .withOverlay(false)
+                        .withStyleId(R.style.ToolTipLayoutDefaultStyle_StartTooltip)
+                        .build()
+        );
+
+        tooltip.show();
+
         // ShakeDetector initialization
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mShakeDetector = new ShakeDetector();
         mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
-
             @Override
             public void onShake(int count) {
-				/*
-				 * The following method, "handleShakeEvent(count):" is a stub //
-				 * method you would use to setup whatever you want done once the
-				 * device has been shook.
-				 */
-                Log.d(LOG_TAG, String.format(Locale.US,"Shake count: %d", count));
-
                 if (count >=2 )
                     startRollingDice(true);
             }
@@ -108,7 +119,10 @@ public class MainActivity extends AppCompatActivity {
         //start my own thread and
         if (!diceThreadStarted) {
             diceThreadStarted = true;
-            Log.d(LOG_TAG, "Start thread");
+
+            if(rollCounter ==0 )  tooltip.hide();
+            rollCounter++;
+//            Log.d(LOG_TAG, "Start thread");
             //TODO: fix vibration - doesn't work on my s8 :(
 //            if(isShake && vibrator != null ) {
 //                vibrator.vibrate(500);
@@ -120,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.shuffle(dice);
 
                     int currentDiceRollIterations = DICE_ROLL_ITERATIONS - random.nextInt(DICE_ROLL_ITERATIONS/2);
-                    Log.d(LOG_TAG, "Thorow iterations: "  + Integer.toString(currentDiceRollIterations));
+//                    Log.d(LOG_TAG, "Thorow iterations: "  + Integer.toString(currentDiceRollIterations));
                     for (int i = 0; i < currentDiceRollIterations; i++) {
 
                         final String diceValue = dice.get(i%DICE_SIZE);
@@ -152,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.e(LOG_TAG, e.getMessage());
                         }
                     }
-                    Log.d(LOG_TAG,"Finish thread");
+//                    Log.d(LOG_TAG,"Finish thread");
                     diceThreadStarted = false;
                 }
             }).start();
