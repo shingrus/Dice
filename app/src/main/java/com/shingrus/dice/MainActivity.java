@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
             @Override
             public void onShake(int count) {
-                if (count >=2 )
+                if (count >=1 )
                     startRollingDice(true);
             }
         });
