@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        diceView = (TextView) findViewById(R.id.dice);
+        diceView = (TextView) findViewById(R.id.dice1);
 
         rollingColor = getResources().getColor(R.color.diceRolling);
         readyColor = getResources().getColor(R.color.diceReady);
