@@ -12,7 +12,7 @@ android {
 
         def code = versionProps['VERSION_CODE'].toInteger() + 1
 
-        versionProps['VERSION_CODE']=code.toString()
+        versionProps['VERSION_CODE'] = code.toString()
         versionProps.store(versionPropsFile.newWriter(), null)
         defaultConfig {
             applicationId "com.shingrus.dice"
@@ -30,12 +30,14 @@ android {
         }
 
 
-    }
-    else {
+    } else {
         throw new GradleException("Could not read version.properties!")
     }
 
 
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
 }
 
 dependencies {

@@ -2,4 +2,9 @@
     <string name="app_name">Dice</string>
     <string name="action_settings">Settings</string>
     <string name="startTooltip">Tap or Shake your phone</string>
+
+    <string name="action_Enable_1_Dice">1 Dice</string>
+    <string name="action_Enable_2_Dices">2 Dices</string>
+    <string name="action_Enable_Vibro">Enable Vibro</string>
+    <string name="action_Disale_Vibro">Disable Vibro</string>
 </resources>

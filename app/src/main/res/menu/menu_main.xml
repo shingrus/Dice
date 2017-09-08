@@ -2,9 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.shingrus.dice.MainActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
+    <!--<item-->
+        <!--android:id="@+id/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="always" />-->
+    <item android:id="@+id/action_DicesCount"
+        android:title="@string/action_Enable_2_Dices"
         app:showAsAction="never" />
+    <item android:id="@+id/action_Enable_Vibro"
+        android:title="@string/action_Disale_Vibro"
+        app:showAsAction="never" />
+
+
 </menu>
