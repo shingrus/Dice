@@ -3,7 +3,8 @@ package com.shingrus.dice;
     import android.content.Context;
     import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.os.Bundle;
+    import android.os.Build;
+    import android.os.Bundle;
     import android.os.Vibrator;
     import android.support.design.widget.FloatingActionButton;
     import android.support.v7.app.AppCompatActivity;
@@ -119,15 +120,12 @@ public class MainActivity extends AppCompatActivity {
         //start my own thread and
         if (!diceThreadStarted) {
             diceThreadStarted = true;
-
             if(rollCounter ==0 )  tooltip.hide();
             rollCounter++;
-//            Log.d(LOG_TAG, "Start thread");
-            //TODO: fix vibration - doesn't work on my s8 :(
-//            if(isShake && vibrator != null ) {
-//                vibrator.vibrate(500);
-//                Log.d(LOG_TAG, "vibrate");
-//            }
+            if(isShake&& vibrator != null ) {
+                long[] pattern = {50, 75, 40, 50};
+                vibrator.vibrate(pattern,-1);
+            }
             new Thread(new Runnable() {
                 @Override
                 public void run() {
